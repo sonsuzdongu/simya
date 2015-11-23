@@ -30,7 +30,15 @@ try {
 
 var output = []; //message output
 
-var content = fs.read('template.html');
+try {
+    var content = fs.read('template.html');
+} catch (e) {
+    console.log('Error: Cant find template file. Make sure you are running this script inside src directory');
+    phantom.exit();
+}
+
+
+
 //replace #--selenese--# text in content with given selenese file from arguments[1]
 content = content.replace('#--selenese--#', selenese);
 
