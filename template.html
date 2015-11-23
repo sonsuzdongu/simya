@@ -1,0 +1,55 @@
+<?php $f = $_GET['f']?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Selenium IDE Test</title>
+		<script type="text/javascript" src="js/tools.js"></script>
+		<script type="text/javascript" src="js/testCase.js"></script>
+		<script type="text/javascript" src="js/xhtml-entities.js"></script>
+		<script type="text/javascript" src="js/formats/html.js"></script>
+		<script type="text/javascript" src="js/htmlutils.js"></script>
+		<script type="text/javascript" src="js/outto.js"></script>
+
+		<script type="text/javascript">
+        var testCase;
+        var loadJS = function (file, callback) {
+            var script  = document.createElement('script');
+            script.onload = callback;
+            script.src  = file;
+            script.type = 'text/javascript';
+            document.getElementsByTagName('head').item(0).appendChild(script);
+        }
+
+
+        var getOutput = function (callback) {
+            loadJS("js/formats/formatCommandOnlyAdapter.js", function () {
+                    loadJS("js/formats/webdriver.js", function () {
+                        loadJS("js/formats/python2-wd.js", function () {
+                            callback(format(testCase.createCopy()));
+                        });
+                    });
+            });
+        };
+
+
+        var parseIt = function () {
+            var source = document.getElementById('selenese').value;
+            var parser = new DOMParser();
+            var documentx = parser.parseFromString(window.outto, "text/xml");
+            Command.apiDocuments = new Array(documentx);
+
+            options.escapeXmlEntities = "html";
+            log = console;
+
+            testCase = new TestCase();
+            parse(testCase, source);
+        };
+
+
+</script>
+  </head>
+  <body>
+  <textarea id="selenese">#--selenese--#</textarea>
+  </body>
+</html>
