@@ -1,5 +1,5 @@
 # simya
-Command line tool to convert Selenese HTML to Python2 code
+Command line tool to convert Selenium Selenese HTML to Python2 code
 
 #Dependencies
 You need to have PhantomJS(http://phantomjs.org/) inorder to use this
